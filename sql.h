@@ -119,6 +119,7 @@ struct sql_table {
   struct  {
     int drop_data:1;
   }; /* flags */
+  char *float_fmt;
 };
 
 struct sql_table *sql_table_new(void);
@@ -152,6 +153,7 @@ struct sql_context {
   struct sql_column *current_column;
   /* -- Sonstiges -- */
   char *source_file;
+  char *float_fmt;
 }; /* struct sql_context */
 
 struct sql_context sql_context_init(void);

@@ -111,6 +111,7 @@ void sql_table_open(struct sql_table *p, const struct sql_context *q)
    */
   const int allow_header = !(0 == access(p->filename, W_OK)) || !q->dont_drop;
   const char *mode = q->dont_drop ? "a" : "w";
+  p->float_fmt = q->float_fmt;
 
   if(q->compress) {
     #ifdef SQL_ZLIB
@@ -228,6 +229,9 @@ void sql_table_write_row(struct sql_table *p)
     switch(it->type) {
       case sql_column_type_int:
         fprintf(p->out, "%lli", it->int_value);
+        break;
+      case sql_column_type_float:
+        fprintf(p->out, p->float_fmt, it->flt_value);
         break;
       default:
         /* Programmabbruch, da der Typ unbekannt ist! */

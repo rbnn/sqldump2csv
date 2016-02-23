@@ -36,6 +36,7 @@ struct sql_context sql_context_init(void)
   new_ctx.last_table = NULL;
   new_ctx.current_column = NULL;
   new_ctx.source_file = NULL;
+  new_ctx.float_fmt = "%.4f";
   return new_ctx;
 }
 

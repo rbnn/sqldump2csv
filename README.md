@@ -12,4 +12,4 @@ make
 
 ## Notice
 
-So far, the program is limited to **integer columns**.
+So far, the program is limited to **integer** and **float** columns.

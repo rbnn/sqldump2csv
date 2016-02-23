@@ -38,21 +38,22 @@ int main(int argc, char *argv[])
   int opt;
   struct sql_context sql = sql_context_init();
   sql.source_file = "stdin";
-  while(-1 != (opt = getopt(argc, argv, "hqcdnt"))) {
+  while(-1 != (opt = getopt(argc, argv, "hqcdntf:"))) {
     switch(opt) {
       case 'h':
         printf("Usage: %s OPT FILE...\n", basename(argv[0]));
         printf("\n");
         printf("Converts sql-dump files into csv-files. All files will be\n");
         printf("parsed one by one. When `-' is given, `stdin' is read.\n");
-        printf(" -h  Print this message and terminate.\n");
-        printf(" -q  Only print errors.\n");
+        printf(" -h      Print this message and terminate.\n");
+        printf(" -q      Only print errors.\n");
         #ifdef SQL_ZLIB
-        printf(" -c  Compress resulting tables with zlib.\n");
+        printf(" -c      Compress resulting tables with zlib.\n");
         #endif /* SQL_ZLIB */
-        printf(" -d  Ignore `drop table' statements.\n");
-        printf(" -n  Insert column names as first line.\n");
-        printf(" -t  Insert column types as comment.\n");
+        printf(" -d      Ignore `drop table' statements.\n");
+        printf(" -n      Insert column names as first line.\n");
+        printf(" -t      Insert column types as comment.\n");
+        printf(" -f FMT  Set print format for float values.\n");
         printf("\n");
         printf("Copyright 2016, rbnn\n");
         printf("Compiled: %s %s\n", __DATE__, __TIME__);
@@ -77,6 +78,10 @@ int main(int argc, char *argv[])
       case 't':
         sql_debug("Enabling column types...");
         sql.add_types = 1;
+        break;
+      case 'f':
+        sql_debug("Changing float format to `%s'...", optarg);
+        sql.float_fmt = optarg;
         break;
       default:
         /* Programmabbruch, da die Option unbekannt war! */
@@ -369,6 +374,13 @@ insert_into_values_columns:
     struct sql_column *col = sql_context_get_current_column(ctx);
     sql_context_next_column(ctx);
     sql_column_set_int(col, $1);
+  }
+  |
+  FLOAT
+  {
+    struct sql_column *col = sql_context_get_current_column(ctx);
+    sql_context_next_column(ctx);
+    sql_column_set_float(col, $1);
   }
   |
   insert_into_values_columns COMMA INT
