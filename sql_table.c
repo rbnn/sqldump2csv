@@ -101,7 +101,11 @@ void sql_table_open(struct sql_table *p, const struct sql_context *q)
   } /* if(NULL != p->out) */
 
   char tmp_filename[2 * PATH_MAX] = {0};
-  snprintf(tmp_filename, sizeof(tmp_filename), "%s.%s.csv%s", q->source_file, p->name, q->compress ? ".gz" : "");
+  if(NULL == q->out_dir) {
+    snprintf(tmp_filename, sizeof(tmp_filename), "%s.%s.csv%s", q->source_file, p->name, q->compress ? ".gz" : "");
+  } else {
+    snprintf(tmp_filename, sizeof(tmp_filename), "%s/%s.%s.csv%s", q->out_dir, q->source_file, p->name, q->compress ? ".gz" : "");
+  } /* if(NULL == q->out_dir) */
   sql_table_set_file(p, tmp_filename);
   sql_debug("Opening table `%s' as file `%s'...", p->name, p->filename);
 

@@ -11,7 +11,7 @@ ifeq ($(WITH_ZLIB),1)
 endif
 
 sqldump2csv: sql_scanner.o sql_parser.o sql_column.o sql_context.o sql_table.o sql_utils.o
-	$(CC) -o $@ $? $(LDFLAGS)
+	$(CC) -o $@ -Wl,--start-group $? -Wl,--end-group $(LDFLAGS)
 
 sql_parser.c:
 	bison sql_parser.y

@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
   int opt;
   struct sql_context sql = sql_context_init();
   sql.source_file = "stdin";
-  while(-1 != (opt = getopt(argc, argv, "hqcdntf:"))) {
+  while(-1 != (opt = getopt(argc, argv, "hqcdntf:o:"))) {
     switch(opt) {
       case 'h':
         printf("Usage: %s OPT FILE...\n", basename(argv[0]));
@@ -54,6 +54,7 @@ int main(int argc, char *argv[])
         printf(" -n      Insert column names as first line.\n");
         printf(" -t      Insert column types as comment.\n");
         printf(" -f FMT  Set print format for float values.\n");
+        printf(" -o DIR  Use DIR as output directory.\n");
         printf("\n");
         printf("Copyright 2016, rbnn\n");
         printf("Compiled: %s %s\n", __DATE__, __TIME__);
@@ -82,6 +83,10 @@ int main(int argc, char *argv[])
       case 'f':
         sql_debug("Changing float format to `%s'...", optarg);
         sql.float_fmt = optarg;
+        break;
+      case 'o':
+        sql_debug("Changing output directory to `%s'...", optarg);
+        sql.out_dir = optarg;
         break;
       default:
         /* Programmabbruch, da die Option unbekannt war! */

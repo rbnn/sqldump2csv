@@ -154,6 +154,7 @@ struct sql_context {
   /* -- Sonstiges -- */
   char *source_file;
   char *float_fmt;
+  char *out_dir;
 }; /* struct sql_context */
 
 struct sql_context sql_context_init(void);
