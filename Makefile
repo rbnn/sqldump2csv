@@ -10,7 +10,7 @@ ifeq ($(WITH_ZLIB),1)
 	CFLAGS+=-DSQL_ZLIB
 endif
 
-sql2csv: sql_scanner.o sql_parser.o sql_column.o sql_context.o sql_table.o sql_utils.o
+sqldump2csv: sql_scanner.o sql_parser.o sql_column.o sql_context.o sql_table.o sql_utils.o
 	$(CC) -o $@ $? $(LDFLAGS)
 
 sql_parser.c:
