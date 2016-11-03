@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
 %locations
 %error-verbose
 %define api.pure full
-%define api.prefix sql
+%define api.prefix {sql}
 %lex-param    {void *scanner}
 %parse-param  {struct sql_context *ctx}
 %parse-param  {void *scanner}
