@@ -5,7 +5,7 @@ The input is split into one file per table that can be gzipped optionally.
 
 ## Installation
 
-If you have *GNU-bison*(2.7.12), *flex*(2.5.39) and *zlib*(1.2.8) installed, just type
+If you have *GNU-bison*(3.0.4), *flex*(2.5.39) and *zlib*(1.2.8) installed, just type
 ```
 make
 ```
