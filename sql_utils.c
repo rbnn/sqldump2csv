@@ -31,7 +31,7 @@ void *sql_xmalloc(size_t s)
   void *ptr = NULL;
   if((0 != s) && (NULL == (ptr = malloc(s)))) {
     /* Programmabbruch, da der Speicher nicht allokiert werden konnte! */
-    sql_die("Could not allocate %lu bytes!", s);
+    sql_die("Could not allocate %zu bytes!", s);
   } /* if ...malloc ... */
   return ptr;
 }
